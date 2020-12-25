@@ -19,8 +19,8 @@ import java.util.concurrent.Future;
 @Component
 public class KawalCoronaAdaptor {
 
-    public CoronaDataListResponse getIndonesiaCovidData() {
-        CoronaDataListResponse coronaDataListResponse;
+    public CoronaData[] getIndonesiaCovidData() {
+        CoronaData[] coronaDataListResponse;
         String URI = "https://api.kawalcorona.com/indonesia";
         System.out.println("URI: " + URI);
 
@@ -43,7 +43,7 @@ public class KawalCoronaAdaptor {
             System.out.println(jsonResponse);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            coronaDataListResponse = objectMapper.readValue(jsonResponse, CoronaDataListResponse.class);
+            coronaDataListResponse = objectMapper.readValue(jsonResponse, CoronaData[].class);
         } catch (InterruptedException | ExecutionException | IOException e) {
             throw new RuntimeException(e);
         }

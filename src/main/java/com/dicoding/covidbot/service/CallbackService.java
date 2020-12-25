@@ -170,9 +170,9 @@ public class CallbackService {
              // show hospital that handle covid
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
-            CoronaDataListResponse indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
-            String replyText = "Positif: " +indonesianCoronaData.getCoronaDataList().get(0).getPositif() +
-                    "\n Meninggal: "+ indonesianCoronaData.getCoronaDataList().get(0).getMeninggal();
+            CoronaData[] indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
+            String replyText = "Positif: " +indonesianCoronaData[0].getPositif() +
+                    "\n Meninggal: "+ indonesianCoronaData[0].getMeninggal();
             botService.replyText(replyToken, replyToken);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
