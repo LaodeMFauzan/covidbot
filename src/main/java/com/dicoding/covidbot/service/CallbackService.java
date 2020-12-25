@@ -173,7 +173,7 @@ public class CallbackService {
             CoronaData[] indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
             String replyText = "Positif: " +indonesianCoronaData[0].getPositif() +
                     "\n Meninggal: "+ indonesianCoronaData[0].getMeninggal();
-            botService.replyText(replyToken, replyToken);
+            botService.replyText(replyToken, replyText);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
