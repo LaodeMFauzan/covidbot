@@ -2,6 +2,7 @@ package com.dicoding.covidbot.service;
 
 import com.dicoding.covidbot.adapter.KawalCoronaAdaptor;
 import com.dicoding.covidbot.model.CoronaData;
+import com.dicoding.covidbot.model.CoronaDataListResponse;
 import com.dicoding.covidbot.model.LineEventsModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -169,9 +170,9 @@ public class CallbackService {
              // show hospital that handle covid
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
-            CoronaData indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
-            String replyText = "Positif: " +indonesianCoronaData.getPositif() +
-                    "\n Meninggal: "+ indonesianCoronaData.getMeninggal();
+            CoronaDataListResponse indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
+            String replyText = "Positif: " +indonesianCoronaData.getCoronaDataList().get(0).getPositif() +
+                    "\n Meninggal: "+ indonesianCoronaData.getCoronaDataList().get(0).getMeninggal();
             botService.replyText(replyToken, replyToken);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));

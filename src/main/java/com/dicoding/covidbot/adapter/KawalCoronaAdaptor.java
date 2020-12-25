@@ -1,6 +1,7 @@
 package com.dicoding.covidbot.adapter;
 
 import com.dicoding.covidbot.model.CoronaData;
+import com.dicoding.covidbot.model.CoronaDataListResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -18,8 +19,8 @@ import java.util.concurrent.Future;
 @Component
 public class KawalCoronaAdaptor {
 
-    public CoronaData getIndonesiaCovidData() {
-        CoronaData coronaData;
+    public CoronaDataListResponse getIndonesiaCovidData() {
+        CoronaDataListResponse coronaDataListResponse;
         String URI = "https://api.kawalcorona.com/indonesia";
         System.out.println("URI: " + URI);
 
@@ -42,11 +43,11 @@ public class KawalCoronaAdaptor {
             System.out.println(jsonResponse);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            coronaData = objectMapper.readValue(jsonResponse, CoronaData.class);
+            coronaDataListResponse = objectMapper.readValue(jsonResponse, CoronaDataListResponse.class);
         } catch (InterruptedException | ExecutionException | IOException e) {
             throw new RuntimeException(e);
         }
-        return coronaData;
+        return coronaDataListResponse;
     }
 }
 
