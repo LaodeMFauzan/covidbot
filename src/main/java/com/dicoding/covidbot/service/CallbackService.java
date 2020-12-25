@@ -159,6 +159,11 @@ public class CallbackService {
     private void handleOneOnOneChats(String replyToken, String textMessage) {
         String msgText = textMessage.toLowerCase();
         if (msgText.contains("info")) {
+            String replyText = "COVID-19 adalah penyakit menular yang disebabkan oleh jenis coronavirus " +
+                    "yang baru ditemukan. Ini merupakan virus baru dan penyakit yang tidak dikenal " +
+                    "sebelum terjadi wabah di Wuhan, Tiongkok, bulan Desember 2019.\n" +
+                    "COVID-19 adalah singkatan dari CoronaVirus Disease-2019.";
+            botService.replyText(replyToken, replyText);
             // info covid
         } else if (msgText.contains("rumah sakit")){
              // show hospital that handle covid
