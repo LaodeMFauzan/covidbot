@@ -32,9 +32,7 @@ import java.util.List;
 
 @Service
 public class CallbackService {
-    @Autowired
-    @Qualifier("lineSignatureValidator")
-    private LineSignatureValidator lineSignatureValidator;
+
 
     @Autowired
     private BotService botService;
@@ -45,11 +43,6 @@ public class CallbackService {
 
     public ResponseEntity<String> execute(String xLineSignature, String eventsPayload) {
         try {
-            // validasi line signature. matikan validasi ini jika masih dalam pengembangan
-            if (!lineSignatureValidator.validateSignature(eventsPayload.getBytes(), xLineSignature)) {
-                throw new RuntimeException("Invalid Signature Validation");
-            }
-
             System.out.println(eventsPayload);
             ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
             LineEventsModel eventsModel = objectMapper.readValue(eventsPayload, LineEventsModel.class);
