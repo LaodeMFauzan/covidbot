@@ -24,7 +24,6 @@ public class LineBotController {
         if (!lineSignatureValidator.validateSignature(eventsPayload.getBytes(), xLineSignature)) {
             throw new RuntimeException("Invalid Signature Validation");
         }
-
        return callbackService.execute(xLineSignature, eventsPayload);
     }
 }
