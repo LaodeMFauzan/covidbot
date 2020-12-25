@@ -11,7 +11,7 @@ sourceCompatibility = '1.8'
 repositories {
 	mavenCentral()
 }
-l
+
 dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.16'
 	annotationProcessor 'org.projectlombok:lombok:1.18.16'
