@@ -2,7 +2,6 @@ package com.dicoding.covidbot.service;
 
 import com.dicoding.covidbot.model.LineEventsModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -19,12 +18,9 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +28,6 @@ import java.util.List;
 
 @Service
 public class CallbackService {
-
 
     @Autowired
     private BotService botService;
@@ -147,10 +142,13 @@ public class CallbackService {
 
     private void handleOneOnOneChats(String replyToken, String textMessage) {
         String msgText = textMessage.toLowerCase();
-        if (msgText.contains("id")
-                || msgText.contains("find")
-                || msgText.contains("join")
-                || msgText.contains("teman")) {
+        if (msgText.contains("info")) {
+            // info covid
+        } else if (msgText.contains("rumah sakit")){
+             // show hospital that handle covid
+        } else if (msgText.contains("kasus")){
+            // show the number cases of covid19 in Indonesia
+        } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
     }
