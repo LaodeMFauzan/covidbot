@@ -13,17 +13,9 @@ public class LineBotController {
     @Autowired
     private CallbackService callbackService;
 
-    @Autowired
-    @Qualifier("lineSignatureValidator")
-    private LineSignatureValidator lineSignatureValidator;
-
     @RequestMapping(value="/webhook", method= RequestMethod.POST)
     public ResponseEntity<String> callback(@RequestHeader("X-Line-Signature") String xLineSignature,
                                            @RequestBody String eventsPayload) {
-        // validasi line signature. matikan validasi ini jika masih dalam pengembangan
-        if (!lineSignatureValidator.validateSignature(eventsPayload.getBytes(), xLineSignature)) {
-            throw new RuntimeException("Invalid Signature Validation");
-        }
        return callbackService.execute(xLineSignature, eventsPayload);
     }
 }

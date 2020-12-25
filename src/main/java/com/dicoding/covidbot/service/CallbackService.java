@@ -1,7 +1,10 @@
 package com.dicoding.covidbot.service;
 
+import com.dicoding.covidbot.adapter.KawalCoronaAdaptor;
+import com.dicoding.covidbot.model.CoronaData;
 import com.dicoding.covidbot.model.LineEventsModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -18,6 +21,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -32,12 +36,24 @@ public class CallbackService {
     @Autowired
     private BotService botService;
 
+    @Autowired
+    @Qualifier("lineSignatureValidator")
+    private LineSignatureValidator lineSignatureValidator;
+
+    @Autowired
+    private KawalCoronaAdaptor kawalCoronaAdaptor;
+
     private UserProfileResponse sender = null;
 
     private BotTemplate botTemplate;
 
     public ResponseEntity<String> execute(String xLineSignature, String eventsPayload) {
         try {
+            // validasi line signature. matikan validasi ini jika masih dalam pengembangan
+            if (!lineSignatureValidator.validateSignature(eventsPayload.getBytes(), xLineSignature)) {
+                throw new RuntimeException("Invalid Signature Validation");
+            }
+
             System.out.println(eventsPayload);
             ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
             LineEventsModel eventsModel = objectMapper.readValue(eventsPayload, LineEventsModel.class);
@@ -148,6 +164,10 @@ public class CallbackService {
              // show hospital that handle covid
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
+            CoronaData indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
+            String replyText = "Positif: " +indonesianCoronaData.getPositif() +
+                    "\n Meninggal: "+ indonesianCoronaData.getMeninggal();
+            botService.replyText(replyToken, replyToken);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }

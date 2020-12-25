@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 
 public class KawalCoronaAdaptor {
 
-    private CoronaData getIndonesiaCovidData() {
+    public CoronaData getIndonesiaCovidData() {
         CoronaData coronaData;
         String URI = "https://api.kawalcorona.com/indonesia";
         System.out.println("URI: " + URI);
