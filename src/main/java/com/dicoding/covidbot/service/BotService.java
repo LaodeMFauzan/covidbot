@@ -59,6 +59,7 @@ public class BotService {
 
     public void replyText(String replyToken, String messageText){
         TextMessage textMessage = new TextMessage(messageText);
+        System.out.println("DEBUG MESSAGE RREPLY: "+ textMessage.getText());
         reply(replyToken, textMessage);
     }
 

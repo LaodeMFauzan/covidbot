@@ -38,12 +38,12 @@ public class CasesHandlerService {
        ListCases[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
        Map<String, Attributes> provinceCaseMap = new HashMap<>();
         Arrays.stream(coronaData).forEach(cases -> {
-            provinceCaseMap.put(cases.getAttributes().getProvinsi(), cases.getAttributes());
+            provinceCaseMap.put(cases.getAttributes().getProvinsi().toLowerCase(), cases.getAttributes());
         });
         return provinceCaseMap;
     }
 
-    public String getProvinceCovidCases( Map<String, Attributes> provinceCaseMap, String province){
+    public String getProvinceCovidCases(Map<String, Attributes> provinceCaseMap, String province){
         return  "Total Kasus Covid19 di "+province +"\n"+
                 "\nPositif: " +provinceCaseMap.get(province).getKasus_Posi() +
                 "\nMeninggal: "+ provinceCaseMap.get(province).getKasus_Meni() +

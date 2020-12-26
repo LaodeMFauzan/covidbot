@@ -168,7 +168,7 @@ public class CallbackService {
                 e.printStackTrace();
             }
             botService.replyText(replyToken, replyText);
-        } else if (msgText.contains("rumah sakit")){
+        } else if (msgText.contains("penanganan")){
              // show hospital that handle covid
             replyFlexMessage(replyToken);
         } else if (msgText.contains("kasus")){
@@ -176,7 +176,7 @@ public class CallbackService {
             casesHandlerService.handleCovidCasesRequest(replyToken);
         } else if (msgText.contains("indonesia")){
             botService.replyText(replyToken, casesHandlerService.getIndonesianAllCovidCases());
-        } else if ((casesHandlerService.getProvinceCovidCases().containsKey(msgText))){
+        } else if ((casesHandlerService.getProvinceCovidCases().containsKey(msgText.toLowerCase()))){
             botService.replyText(replyToken, casesHandlerService.getProvinceCovidCases(
                     casesHandlerService.getProvinceCovidCases(), msgText
             ));
