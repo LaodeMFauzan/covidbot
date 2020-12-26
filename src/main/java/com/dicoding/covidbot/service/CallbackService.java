@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,10 +157,9 @@ public class CallbackService {
     private void handleOneOnOneChats(String replyToken, String textMessage) {
         String msgText = textMessage.toLowerCase();
         if (msgText.contains("info")) {
-            Path filePath = Path.of("covid_info.txt");
             String replyText = null;
             try {
-                replyText = new String(Files.readAllBytes(filePath));
+                replyText = new String(Files.readAllBytes(Paths.get("covid_info.txt")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
