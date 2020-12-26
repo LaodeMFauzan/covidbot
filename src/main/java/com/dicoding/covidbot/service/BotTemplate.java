@@ -1,5 +1,6 @@
 package com.dicoding.covidbot.service;
 
+import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
@@ -11,16 +12,23 @@ import com.linecorp.bot.model.profile.UserProfileResponse;
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class BotTemplate {
     public TemplateMessage createButton(String message, String actionTitle, String actionText) {
+        List<Action> actionList = new ArrayList<>();
+        actionList.add(new MessageAction(actionTitle, actionText));
+        actionList.add(new MessageAction("kasus", "Lihat kasus covid Indonesia"));
+        actionList.add(new MessageAction("Penanganan", "Lihat RS covid di Indonesia"));
+
         ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
                 null,
                 null,
                 message,
-                Collections.singletonList(new MessageAction(actionTitle, actionText))
+               actionList
         );
 
         return new TemplateMessage(actionTitle, buttonsTemplate);
@@ -28,7 +36,7 @@ public class BotTemplate {
 
     public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
         String message  = "Halo! Saya vidbo, virtual assistant yang siap menjawab pertanyaan seputar covid19 di Indonesia";
-        String action   = "Lihat daftar event";
+        String action   = "Info covid";
 
         if (source instanceof GroupSource) {
             message = String.format(message, "Group");
