@@ -173,7 +173,7 @@ public class CallbackService {
             replyFlexMessage(replyToken);
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
-            casesHandlerService.getProvinceCovidCases();
+            casesHandlerService.handleCovidCasesRequest(replyToken);
         } else if (msgText.contains("indonesia")){
             botService.replyText(replyToken, casesHandlerService.getIndonesianAllCovidCases());
         } else if ((casesHandlerService.getProvinceCovidCases().containsKey(msgText))){
