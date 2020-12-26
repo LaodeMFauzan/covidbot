@@ -39,7 +39,7 @@ public class CasesHandlerService {
     public void getProvinceCovidCases(){
        ListCases[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
         for (int i = 0; i < 10; i++){
-            System.out.println("SUKSES PLISSSSSSSSS "+coronaData[i].getAttributes().getProvinsi());
+            System.out.println("SUKSES PLISSSSSSSSS "+coronaData[i].getAttributes().getFID());
             System.out.println("SUKSES PLISSSSSSSSS POSITIF"+coronaData[i].getAttributes().getKasus_Meni());
             System.out.println("SUKSES PLISSSSSSSSS DEATH"+coronaData[i].getAttributes().getKasus_Posi());
         }

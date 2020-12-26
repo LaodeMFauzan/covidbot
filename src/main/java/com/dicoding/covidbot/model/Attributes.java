@@ -16,11 +16,15 @@ import java.io.Serializable;
 @JsonIgnoreProperties
 public class Attributes implements Serializable {
     @JsonProperty("FID")
-    private String FID;
-    private String Kode_Provi;
-    private String Provinsi;
-    private String Kasus_Posi;
-    private String Kasus_Semb;
-    private String Kasus_Meni;
-
+    public int fID;
+    @JsonProperty("Kode_Provi")
+    public int kode_Provi;
+    @JsonProperty("Provinsi")
+    public String provinsi;
+    @JsonProperty("Kasus_Posi")
+    public int kasus_Posi;
+    @JsonProperty("Kasus_Semb")
+    public int kasus_Semb;
+    @JsonProperty("Kasus_Meni")
+    public int kasus_Meni;
 }
