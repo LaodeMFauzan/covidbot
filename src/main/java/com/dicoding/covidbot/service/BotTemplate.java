@@ -21,7 +21,7 @@ public class BotTemplate {
     public TemplateMessage createButton(String message, String actionTitle, String actionText) {
         List<Action> actionList = new ArrayList<>();
         actionList.add(new MessageAction(actionTitle, actionText));
-        actionList.add(new MessageAction("Kasus Covid19 Indonesia", "Kasus"));
+        actionList.add(new MessageAction("Kasus Covid19", "Kasus"));
         actionList.add(new MessageAction("RS Covid", "Penanganan"));
 
         ButtonsTemplate buttonsTemplate = new ButtonsTemplate(

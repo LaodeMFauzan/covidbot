@@ -27,6 +27,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class CallbackService {
     private LineSignatureValidator lineSignatureValidator;
 
     @Autowired
-    private KawalCoronaAdaptor kawalCoronaAdaptor;
+    CasesHandlerService casesHandlerService;
 
     private UserProfileResponse sender = null;
 
@@ -149,28 +151,26 @@ public class CallbackService {
             } else {
                 botService.leaveRoom(roomId);
             }
-        } else if (msgText.contains("id")
-                || msgText.contains("find")
-                || msgText.contains("join")
-                || msgText.contains("teman")) {
-            handleFallbackMessage(replyToken, new RoomSource(roomId, sender.getUserId()));
         }
     }
 
     private void handleOneOnOneChats(String replyToken, String textMessage) {
         String msgText = textMessage.toLowerCase();
         if (msgText.contains("info")) {
-            String replyText = "COVID-19 adalah penyakit menular yang disebabkan oleh jenis coronavirus " +
-                    "yang baru ditemukan. Ini merupakan virus baru dan penyakit yang tidak dikenal " +
-                    "sebelum terjadi wabah di Wuhan, Tiongkok, bulan Desember 2019.\n\n" +
-                    "COVID-19 adalah singkatan dari CoronaVirus Disease-2019.";
+            Path filePath = Path.of("covid_info.txt");
+            String replyText = null;
+            try {
+                replyText = Files.readString(filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             botService.replyText(replyToken, replyText);
-            // info covid
         } else if (msgText.contains("rumah sakit")){
              // show hospital that handle covid
+
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
-
+            casesHandlerService.handleCovidCasesRequest(replyToken);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
@@ -179,19 +179,4 @@ public class CallbackService {
     private void handleFallbackMessage(String replyToken, Source source) {
         greetingMessage(replyToken, source, "Hi " + sender.getDisplayName() + ", aku belum  mengerti maksud kamu. Silahkan ikuti petunjuk ya :)");
     }
-
-    private void handleCovidCasesRequest(String replyToken){
-        String askRegionText ="Silahkan ketik nama provinsi atau ketik Indonesia untuk kasus seluruh Indonesia";
-        botService.replyText(replyToken, askRegionText);
-    }
-
-    private String showIndonesianAllCovidCasesData(){
-        CoronaData[] indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
-        return  "Total Kasus Covid19 di Indonesia \n" +
-                "\nPositif: " +indonesianCoronaData[0].getPositif() +
-                "\nMeninggal: "+ indonesianCoronaData[0].getMeninggal() +
-                "\nSembuh: "+ indonesianCoronaData[0].getSembuh() +
-                "\nDirawat: "+ indonesianCoronaData[0].getDirawat();
-    }
-
 }
