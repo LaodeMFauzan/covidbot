@@ -1,7 +1,6 @@
 package com.dicoding.covidbot.adapter;
 
 import com.dicoding.covidbot.model.CoronaData;
-import com.dicoding.covidbot.model.CoronaDataListResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;

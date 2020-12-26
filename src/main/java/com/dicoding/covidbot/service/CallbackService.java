@@ -2,7 +2,6 @@ package com.dicoding.covidbot.service;
 
 import com.dicoding.covidbot.adapter.KawalCoronaAdaptor;
 import com.dicoding.covidbot.model.CoronaData;
-import com.dicoding.covidbot.model.CoronaDataListResponse;
 import com.dicoding.covidbot.model.LineEventsModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -74,7 +73,6 @@ public class CallbackService {
         }
     }
 
-
     private void handleJointOrFollowEvent(String replyToken, Source source) {
         greetingMessage(replyToken, source, null);
     }
@@ -89,6 +87,7 @@ public class CallbackService {
         if (content instanceof TextMessageContent) {
             handleTextMessage(replyToken, (TextMessageContent) content, source);
         } else {
+            System.out.println("GREET THE USER!!!");
             greetingMessage(replyToken, source, null);
         }
     }
@@ -127,7 +126,7 @@ public class CallbackService {
         String msgText = textMessage.toLowerCase();
         if (msgText.contains("bot leave")) {
             if (sender == null) {
-                botService.replyText(replyToken, "Hi, tambahkan dulu bot Dicoding Event sebagai teman!");
+                botService.replyText(replyToken, "Hi, tambahkan dulu covid bot sebagai teman!");
             } else {
                 botService.leaveGroup(groupId);
             }
@@ -145,7 +144,7 @@ public class CallbackService {
         String msgText = textMessage.toLowerCase();
         if (msgText.contains("bot leave")) {
             if (sender == null) {
-                botService.replyText(replyToken, "Hi, tambahkan dulu bot Dicoding Event sebagai teman!");
+                botService.replyText(replyToken, "Hi, tambahkan covid bot sebagai teman!");
             } else {
                 botService.leaveRoom(roomId);
             }
@@ -162,7 +161,7 @@ public class CallbackService {
         if (msgText.contains("info")) {
             String replyText = "COVID-19 adalah penyakit menular yang disebabkan oleh jenis coronavirus " +
                     "yang baru ditemukan. Ini merupakan virus baru dan penyakit yang tidak dikenal " +
-                    "sebelum terjadi wabah di Wuhan, Tiongkok, bulan Desember 2019.\n" +
+                    "sebelum terjadi wabah di Wuhan, Tiongkok, bulan Desember 2019.\n\n" +
                     "COVID-19 adalah singkatan dari CoronaVirus Disease-2019.";
             botService.replyText(replyToken, replyText);
             // info covid
@@ -171,8 +170,9 @@ public class CallbackService {
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
             CoronaData[] indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
-            String replyText = "Positif: " +indonesianCoronaData[0].getPositif() +
-                    "\n Meninggal: "+ indonesianCoronaData[0].getMeninggal();
+            String replyText = "Total Kasus Covid19 di Indonesia \n " +
+                    "Positif: " +indonesianCoronaData[0].getPositif() +
+                    "\nMeninggal: "+ indonesianCoronaData[0].getMeninggal();
             botService.replyText(replyToken, replyText);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
