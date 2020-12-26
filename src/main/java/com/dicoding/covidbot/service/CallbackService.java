@@ -1,7 +1,5 @@
 package com.dicoding.covidbot.service;
 
-import com.dicoding.covidbot.adapter.KawalCoronaAdaptor;
-import com.dicoding.covidbot.model.CoronaData;
 import com.dicoding.covidbot.model.LineEventsModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -29,6 +27,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import java.util.ArrayList;
 import java.util.List;
 
