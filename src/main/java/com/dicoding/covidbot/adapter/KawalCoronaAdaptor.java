@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -38,8 +39,8 @@ public class KawalCoronaAdaptor {
         return coronaDataListResponse;
     }
 
-    public List<ProvinceCovidData> getCovidDataOnProvince() {
-        List<ProvinceCovidData> coronaDataListResponse = new ArrayList<>();
+    public LinkedHashMap<String, ProvinceCovidData>  getCovidDataOnProvince() {
+        LinkedHashMap<String, ProvinceCovidData> coronaDataListResponse = new LinkedHashMap<>();
         String uri = "https://api.kawalcorona.com/indonesia/provinsi";
         System.out.println("URI: " + uri);
 
