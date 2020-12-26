@@ -9,7 +9,7 @@
         "url": "https://d1ojs48v3n42tp.cloudfront.net/provider_location_banner/645541_10-9-2019_11-40-38.jpg",
         "size": "full",
         "aspectMode": "cover",
-        "aspectRatio": "320:213"
+        "aspectRatio": "20:13"
       },
       "body": {
         "type": "box",
@@ -78,7 +78,7 @@
         "type": "image",
         "size": "full",
         "aspectMode": "cover",
-        "aspectRatio": "320:213",
+        "aspectRatio": "20:13",
         "url": "https://img.beritasatu.com/cache/beritasatu/910x580-2/1583387582.jpg"
       },
       "body": {
@@ -148,7 +148,7 @@
         "type": "image",
         "size": "full",
         "aspectMode": "cover",
-        "aspectRatio": "320:213",
+        "aspectRatio": "20:13",
         "url": "https://cms.sehatq.com/cdn-cgi/image/f=auto/public/img/hospital_thumb/rspad-gatot-soebroto-senen-jakarta-pusat-HCFH00000046.jpg"
       },
       "body": {
