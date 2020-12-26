@@ -6,8 +6,10 @@ import com.dicoding.covidbot.model.ProvinceCovidData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CasesHandlerService {
@@ -33,9 +35,9 @@ public class CasesHandlerService {
     }
 
     public void getProvinceCovidCases(){
-        LinkedHashMap<String, ProvinceCovidData> coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
-        coronaData.forEach((s, provinceCovidData) -> {
-            System.out.println("KEY"+s+" VALUE - PROVINSI: "+provinceCovidData.getAttributes().getProvinsi());
+        LinkedHashMap<String, ProvinceCovidData>[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
+        coronaData[0].forEach((s, provinceCovidData) -> {
+            System.out.println("THIS IS PROVINCE"+ provinceCovidData.getAttributes().getProvinsi());
         });
     }
 }

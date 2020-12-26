@@ -39,8 +39,8 @@ public class KawalCoronaAdaptor {
         return coronaDataListResponse;
     }
 
-    public LinkedHashMap<String, ProvinceCovidData>  getCovidDataOnProvince() {
-        LinkedHashMap<String, ProvinceCovidData> coronaDataListResponse = new LinkedHashMap<>();
+    public LinkedHashMap<String, ProvinceCovidData>[]  getCovidDataOnProvince() {
+        LinkedHashMap<String, ProvinceCovidData> coronaDataListResponse[] = new LinkedHashMap[34];
         String uri = "https://api.kawalcorona.com/indonesia/provinsi";
         System.out.println("URI: " + uri);
 
