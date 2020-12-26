@@ -159,7 +159,7 @@ public class CallbackService {
             Path filePath = Path.of("covid_info.txt");
             String replyText = null;
             try {
-                replyText = Files.readString(filePath);
+                replyText = new String(Files.readAllBytes(filePath));
             } catch (IOException e) {
                 e.printStackTrace();
             }
