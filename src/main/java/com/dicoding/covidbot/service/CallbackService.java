@@ -45,6 +45,7 @@ public class CallbackService {
 
     private UserProfileResponse sender = null;
 
+    @Autowired
     private BotTemplate botTemplate;
 
     public ResponseEntity<String> execute(String xLineSignature, String eventsPayload) {
@@ -170,9 +171,11 @@ public class CallbackService {
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
             CoronaData[] indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
-            String replyText = "Total Kasus Covid19 di Indonesia \n " +
-                    "Positif: " +indonesianCoronaData[0].getPositif() +
-                    "\nMeninggal: "+ indonesianCoronaData[0].getMeninggal();
+            String replyText = "Total Kasus Covid19 di Indonesia" +
+                    "\nPositif: " +indonesianCoronaData[0].getPositif() +
+                    "\nMeninggal: "+ indonesianCoronaData[0].getMeninggal() +
+                    "\nSembuh: "+ indonesianCoronaData[0].getSembuh() +
+                    "\nDirawat: "+ indonesianCoronaData[0].getDirawat();
             botService.replyText(replyToken, replyText);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
