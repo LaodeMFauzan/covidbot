@@ -35,7 +35,7 @@ public class CasesHandlerService {
     public void getProvinceCovidCases(){
         LinkedHashMap<String, ProvinceCovidData> coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
         coronaData.forEach((s, provinceCovidData) -> {
-            System.out.println("KEY"+s+" VALUE: "+provinceCovidData.getAttributes().getProvinsi());
+            System.out.println("KEY"+s+" VALUE - PROVINSI: "+provinceCovidData.getAttributes().getProvinsi());
         });
     }
 }
