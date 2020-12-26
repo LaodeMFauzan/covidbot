@@ -159,7 +159,7 @@ public class CallbackService {
         if (msgText.contains("info")) {
             String replyText = null;
             try {
-                replyText = new String(Files.readAllBytes(Paths.get("covid_info.txt")));
+                replyText = new String(Files.readAllBytes(Paths.get("src/main/resources/covid_info.txt")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
