@@ -1,0 +1,215 @@
+{
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "size": "micro",
+      "hero": {
+        "type": "image",
+        "url": "https://d1ojs48v3n42tp.cloudfront.net/provider_location_banner/645541_10-9-2019_11-40-38.jpg",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "320:213"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "RSUP Fatmawati",
+            "weight": "bold",
+            "size": "sm",
+            "wrap": true
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Location",
+                    "wrap": true,
+                    "size": "xs",
+                    "flex": 5,
+                    "weight": "bold"
+                  },
+                  {
+                    "type": "text",
+                    "text": "https://goo.gl/maps/bqVQ1qJc5cSuKNdw9",
+                    "size": "xs"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "Telephone",
+                "size": "xs",
+                "flex": 5,
+                "weight": "bold"
+              },
+              {
+                "type": "text",
+                "text": "(021) 7501524",
+                "size": "xs"
+              }
+            ]
+          }
+        ],
+        "spacing": "sm",
+        "paddingAll": "13px"
+      }
+    },
+    {
+      "type": "bubble",
+      "size": "micro",
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "320:213",
+        "url": "https://img.beritasatu.com/cache/beritasatu/910x580-2/1583387582.jpg"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "RSUP Persahabatan",
+            "weight": "bold",
+            "size": "sm",
+            "wrap": true
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Location",
+                    "wrap": true,
+                    "size": "xs",
+                    "flex": 5,
+                    "weight": "bold"
+                  },
+                  {
+                    "type": "text",
+                    "size": "xs",
+                    "text": "https://goo.gl/maps/DP4TjFUGpoKCjaLeA"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "Telephone",
+                "size": "xs",
+                "flex": 5,
+                "weight": "bold"
+              },
+              {
+                "type": "text",
+                "text": "(021) 4891708",
+                "size": "xs"
+              }
+            ]
+          }
+        ],
+        "spacing": "sm",
+        "paddingAll": "13px"
+      }
+    },
+    {
+      "type": "bubble",
+      "size": "micro",
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "320:213",
+        "url": "https://cms.sehatq.com/cdn-cgi/image/f=auto/public/img/hospital_thumb/rspad-gatot-soebroto-senen-jakarta-pusat-HCFH00000046.jpg"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "RSPAD Gatot Subroto",
+            "weight": "bold",
+            "size": "sm",
+            "wrap": true
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Location",
+                    "wrap": true,
+                    "size": "xs",
+                    "flex": 5,
+                    "weight": "bold"
+                  },
+                  {
+                    "type": "text",
+                    "size": "xs",
+                    "text": "https://goo.gl/maps/BjqciXm5ehKRBQtv9"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "Telephone",
+                "size": "xs",
+                "flex": 5,
+                "weight": "bold"
+              },
+              {
+                "type": "text",
+                "text": "(021) 3840702",
+                "size": "xs"
+              }
+            ]
+          }
+        ],
+        "spacing": "sm",
+        "paddingAll": "13px"
+      }
+    }
+  ]
+}
