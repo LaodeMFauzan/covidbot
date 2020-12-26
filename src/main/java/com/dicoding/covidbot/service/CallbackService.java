@@ -170,13 +170,7 @@ public class CallbackService {
              // show hospital that handle covid
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
-            CoronaData[] indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
-            String replyText = "Total Kasus Covid19 di Indonesia" +
-                    "\nPositif: " +indonesianCoronaData[0].getPositif() +
-                    "\nMeninggal: "+ indonesianCoronaData[0].getMeninggal() +
-                    "\nSembuh: "+ indonesianCoronaData[0].getSembuh() +
-                    "\nDirawat: "+ indonesianCoronaData[0].getDirawat();
-            botService.replyText(replyToken, replyText);
+
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
@@ -184,6 +178,20 @@ public class CallbackService {
 
     private void handleFallbackMessage(String replyToken, Source source) {
         greetingMessage(replyToken, source, "Hi " + sender.getDisplayName() + ", aku belum  mengerti maksud kamu. Silahkan ikuti petunjuk ya :)");
+    }
+
+    private void handleCovidCasesRequest(String replyToken){
+        String askRegionText ="Silahkan ketik nama provinsi atau ketik Indonesia untuk kasus seluruh Indonesia";
+        botService.replyText(replyToken, askRegionText);
+    }
+
+    private String showIndonesianAllCovidCasesData(){
+        CoronaData[] indonesianCoronaData = kawalCoronaAdaptor.getIndonesiaCovidData();
+        return  "Total Kasus Covid19 di Indonesia \n" +
+                "\nPositif: " +indonesianCoronaData[0].getPositif() +
+                "\nMeninggal: "+ indonesianCoronaData[0].getMeninggal() +
+                "\nSembuh: "+ indonesianCoronaData[0].getSembuh() +
+                "\nDirawat: "+ indonesianCoronaData[0].getDirawat();
     }
 
 }
