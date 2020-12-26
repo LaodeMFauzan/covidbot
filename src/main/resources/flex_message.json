@@ -40,9 +40,12 @@
                     "weight": "bold"
                   },
                   {
-                    "type": "text",
-                    "text": "https://goo.gl/maps/bqVQ1qJc5cSuKNdw9",
-                    "size": "xs"
+                    "type": "button",
+                    "action": {
+                      "type": "uri",
+                      "label": "Map",
+                      "uri": "https://goo.gl/maps/bqVQ1qJc5cSuKNdw9"
+                    }
                   }
                 ]
               }
@@ -110,9 +113,12 @@
                     "weight": "bold"
                   },
                   {
-                    "type": "text",
-                    "size": "xs",
-                    "text": "https://goo.gl/maps/DP4TjFUGpoKCjaLeA"
+                    "type": "button",
+                    "action": {
+                      "type": "uri",
+                      "label": "Map",
+                      "uri": "https://goo.gl/maps/DP4TjFUGpoKCjaLeA"
+                    }
                   }
                 ]
               }
@@ -180,9 +186,12 @@
                     "weight": "bold"
                   },
                   {
-                    "type": "text",
-                    "size": "xs",
-                    "text": "https://goo.gl/maps/BjqciXm5ehKRBQtv9"
+                    "type": "button",
+                    "action": {
+                      "type": "uri",
+                      "label": "Map",
+                      "uri": "https://goo.gl/maps/BjqciXm5ehKRBQtv9"
+                    }
                   }
                 ]
               }
