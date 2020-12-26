@@ -1,6 +1,7 @@
 package com.dicoding.covidbot.service;
 
 import com.dicoding.covidbot.adapter.KawalCoronaAdaptor;
+import com.dicoding.covidbot.model.Attributes;
 import com.dicoding.covidbot.model.CoronaData;
 import com.dicoding.covidbot.model.ProvinceCovidData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,7 @@ public class CasesHandlerService {
     }
 
     public void getProvinceCovidCases(){
-        LinkedHashMap<String, ProvinceCovidData>[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
-        coronaData[0].forEach((s, provinceCovidData) -> {
-            System.out.println("THIS IS PROVINCE"+ provinceCovidData.getAttributes().getProvinsi());
-        });
+       Attributes[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
+        System.out.println("THIS IS PROVINCE" + coronaData[0].getProvinsi());
     }
 }
