@@ -43,7 +43,7 @@
                     "type": "button",
                     "action": {
                       "type": "uri",
-                      "label": "Map",
+                      "label": "Visit on Map",
                       "uri": "https://goo.gl/maps/bqVQ1qJc5cSuKNdw9"
                     }
                   }
@@ -116,7 +116,7 @@
                     "type": "button",
                     "action": {
                       "type": "uri",
-                      "label": "Map",
+                      "label": "Visit on Map",
                       "uri": "https://goo.gl/maps/DP4TjFUGpoKCjaLeA"
                     }
                   }
@@ -189,7 +189,7 @@
                     "type": "button",
                     "action": {
                       "type": "uri",
-                      "label": "Map",
+                      "label": "Visit on Map",
                       "uri": "https://goo.gl/maps/BjqciXm5ehKRBQtv9"
                     }
                   }
