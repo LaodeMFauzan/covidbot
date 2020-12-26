@@ -3,6 +3,7 @@ package com.dicoding.covidbot.service;
 import com.dicoding.covidbot.adapter.KawalCoronaAdaptor;
 import com.dicoding.covidbot.model.Attributes;
 import com.dicoding.covidbot.model.CoronaData;
+import com.dicoding.covidbot.model.ListCases;
 import com.dicoding.covidbot.model.ProvinceCovidData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class CasesHandlerService {
     }
 
     public void getProvinceCovidCases(){
-       Attributes[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
-        System.out.println("THIS IS PROVINCE" + coronaData[0].getProvinsi());
+       ListCases[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
+        System.out.println("SUKSES PLISSSSSSSSS"+coronaData[0].getAttributes().getProvinsi());
     }
 }

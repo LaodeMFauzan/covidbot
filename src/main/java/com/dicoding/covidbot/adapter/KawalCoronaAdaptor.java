@@ -2,6 +2,7 @@ package com.dicoding.covidbot.adapter;
 
 import com.dicoding.covidbot.model.Attributes;
 import com.dicoding.covidbot.model.CoronaData;
+import com.dicoding.covidbot.model.ListCases;
 import com.dicoding.covidbot.model.ProvinceCovidData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,15 +41,15 @@ public class KawalCoronaAdaptor {
         return coronaDataListResponse;
     }
 
-    public Attributes[] getCovidDataOnProvince() {
-        Attributes[] attributes = new Attributes[34];
+    public ListCases[] getCovidDataOnProvince() {
+        ListCases attributes[] = new ListCases[35];
         String uri = "https://api.kawalcorona.com/indonesia/provinsi";
         System.out.println("URI: " + uri);
 
         String jsonResponse = doApiCall(uri);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            attributes = objectMapper.readValue(jsonResponse, Attributes[].class);
+            attributes = objectMapper.readValue(jsonResponse, ListCases[].class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
