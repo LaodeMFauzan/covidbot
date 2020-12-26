@@ -1,6 +1,7 @@
 package com.dicoding.covidbot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @JsonIgnoreProperties
 public class Attributes implements Serializable {
+    @JsonProperty("FID")
     private String FID;
     private String Kode_Provi;
     private String Provinsi;

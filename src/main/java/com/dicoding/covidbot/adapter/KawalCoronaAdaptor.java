@@ -5,6 +5,7 @@ import com.dicoding.covidbot.model.CoronaData;
 import com.dicoding.covidbot.model.ListCases;
 import com.dicoding.covidbot.model.ProvinceCovidData;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -48,6 +49,7 @@ public class KawalCoronaAdaptor {
 
         String jsonResponse = doApiCall(uri);
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
             attributes = objectMapper.readValue(jsonResponse, ListCases[].class);
         } catch (JsonProcessingException e) {
