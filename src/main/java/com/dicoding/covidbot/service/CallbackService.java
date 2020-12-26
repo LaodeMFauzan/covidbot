@@ -3,6 +3,7 @@ package com.dicoding.covidbot.service;
 import com.dicoding.covidbot.model.LineEventsModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -13,11 +14,14 @@ import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UserSource;
+import com.linecorp.bot.model.message.FlexMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -166,11 +170,16 @@ public class CallbackService {
             botService.replyText(replyToken, replyText);
         } else if (msgText.contains("rumah sakit")){
              // show hospital that handle covid
-
+            replyFlexMessage(replyToken);
         } else if (msgText.contains("kasus")){
             // show the number cases of covid19 in Indonesia
-//            casesHandlerService.handleCovidCasesRequest(replyToken);
             casesHandlerService.getProvinceCovidCases();
+        } else if (msgText.contains("indonesia")){
+            botService.replyText(replyToken, casesHandlerService.getIndonesianAllCovidCases());
+        } else if ((casesHandlerService.getProvinceCovidCases().containsKey(msgText))){
+            botService.replyText(replyToken, casesHandlerService.getProvinceCovidCases(
+                    casesHandlerService.getProvinceCovidCases(), msgText
+            ));
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
@@ -178,5 +187,22 @@ public class CallbackService {
 
     private void handleFallbackMessage(String replyToken, Source source) {
         greetingMessage(replyToken, source, "Hi " + sender.getDisplayName() + ", aku belum  mengerti maksud kamu. Silahkan ikuti petunjuk ya :)");
+    }
+
+    private void replyFlexMessage(String replyToken){
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_message.json"));
+
+
+            ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+            FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
+
+
+            ReplyMessage replyMessage = new ReplyMessage(replyToken, new FlexMessage("Dicoding Academy", flexContainer));
+            botService.reply(replyToken, replyMessage.getMessages());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

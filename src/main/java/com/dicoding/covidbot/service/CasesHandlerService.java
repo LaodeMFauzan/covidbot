@@ -8,9 +8,7 @@ import com.dicoding.covidbot.model.ProvinceCovidData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,12 +34,19 @@ public class CasesHandlerService {
                 "\nDirawat: "+ indonesianCoronaData[0].getDirawat();
     }
 
-    public void getProvinceCovidCases(){
+    public Map<String, Attributes> getProvinceCovidCases(){
        ListCases[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
-        for (int i = 0; i < 10; i++){
-            System.out.println("SUKSES PLISSSSSSSSS "+coronaData[i].getAttributes().getFID());
-            System.out.println("SUKSES PLISSSSSSSSS POSITIF"+coronaData[i].getAttributes().getKasus_Meni());
-            System.out.println("SUKSES PLISSSSSSSSS DEATH"+coronaData[i].getAttributes().getKasus_Posi());
-        }
+       Map<String, Attributes> provinceCaseMap = new HashMap<>();
+        Arrays.stream(coronaData).forEach(cases -> {
+            provinceCaseMap.put(cases.getAttributes().getProvinsi(), cases.getAttributes());
+        });
+        return provinceCaseMap;
+    }
+
+    public String getProvinceCovidCases( Map<String, Attributes> provinceCaseMap, String province){
+        return  "Total Kasus Covid19 di "+province +"\n"+
+                "\nPositif: " +provinceCaseMap.get(province).getKasus_Posi() +
+                "\nMeninggal: "+ provinceCaseMap.get(province).getKasus_Meni() +
+                "\nSembuh: "+ provinceCaseMap.get(province).getKasus_Semb();
     }
 }

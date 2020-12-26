@@ -17,14 +17,19 @@ import java.io.Serializable;
 public class Attributes implements Serializable {
     @JsonProperty("FID")
     public int fID;
+
     @JsonProperty("Kode_Provi")
     public int kode_Provi;
+
     @JsonProperty("Provinsi")
     public String provinsi;
+
     @JsonProperty("Kasus_Posi")
     public int kasus_Posi;
+
     @JsonProperty("Kasus_Semb")
     public int kasus_Semb;
+
     @JsonProperty("Kasus_Meni")
     public int kasus_Meni;
 }
