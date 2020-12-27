@@ -8,6 +8,7 @@ import com.dicoding.covidbot.model.ProvinceCovidData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -44,9 +45,11 @@ public class CasesHandlerService {
     }
 
     public String getProvinceCovidCases(Map<String, Attributes> provinceCaseMap, String province){
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+
         return  "Total Kasus Covid19 di "+province +"\n"+
-                "\nPositif: " +provinceCaseMap.get(province).getKasus_Posi() +
-                "\nMeninggal: "+ provinceCaseMap.get(province).getKasus_Meni() +
-                "\nSembuh: "+ provinceCaseMap.get(province).getKasus_Semb();
+                "\nPositif: " +formatter.format(provinceCaseMap.get(province).getKasus_Posi()) +
+                "\nMeninggal: "+ formatter.format(provinceCaseMap.get(province).getKasus_Meni()) +
+                "\nSembuh: "+ formatter.format(provinceCaseMap.get(province).getKasus_Semb());
     }
 }
