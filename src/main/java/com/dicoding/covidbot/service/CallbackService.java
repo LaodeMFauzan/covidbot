@@ -32,9 +32,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class CallbackService {
@@ -167,11 +165,11 @@ public class CallbackService {
         } else if (msgText.contains("kasus")) {
             casesHandlerService.handleCovidCasesRequest(replyToken);
         } else if (msgText.contains("indonesia")) {
-            botService.replyText(replyToken, casesHandlerService.getIndonesianAllCovidCases());
-        } else if ((casesHandlerService.getProvinceCovidCases().containsKey(msgText.toLowerCase()))) {
-            botService.replyText(replyToken, casesHandlerService.getProvinceCovidCases(
-                    casesHandlerService.getProvinceCovidCases(), msgText
-            ));
+            showIndonesiaCovidCases(replyToken);
+        } else if ((casesHandlerService.mapProvinceCovidCases().containsKey(msgText.toLowerCase()))) {
+            showProvinceCovidCases(replyToken, msgText);
+        } else if (msgText.contains("keluar")) {
+            botService.replyText(replyToken, "Terimakasih sudah menghubungi vidbo. Stay safe, stay sane!");
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
@@ -191,14 +189,11 @@ public class CallbackService {
         }
         List<Message> messages = new ArrayList<>();
         messages.add(new TextMessage(replyText));
-        messages.add(new TextMessage("Apa lagi yang bisa dibantu?"));
-        messages.add(new TextMessage("Silahkan ketik info untuk info covid, kasus untuk kasus covid, " +
-                "dan penanganan untuk cari rs covid"));
 
-        botService.reply(replyToken, messages);
+        botService.reply(replyToken, constructReplyMessage(Collections.singletonList(new TextMessage(replyText))));
     }
 
-    public void showCovidHospital(String replyToken){
+    public void showCovidHospital(String replyToken) {
         try {
             ClassLoader classLoader = getClass().getClassLoader();
             String flexTemplate = IOUtils.toString(Objects.requireNonNull
@@ -208,18 +203,38 @@ public class CallbackService {
             ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
             FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
 
-            List<Message> messages = new ArrayList<>();
-            messages.add(new TextMessage("Berikut beberapa RS yang dapat menangani covid."));
-            messages.add(new FlexMessage("RS Covid", flexContainer));
-            messages.add(new TextMessage("Apa lagi yang bisa dibantu?"));
-            messages.add(new TextMessage("Silahkan ketik info untuk info covid, kasus untuk kasus covid, " +
-                    "dan penanganan untuk cari rs covid"));
+            List<Message> mainMessage = new ArrayList<>();
+            mainMessage.add(new TextMessage("Berikut beberapa RS yang dapat menangani covid."));
+            mainMessage.add(new FlexMessage("RS Covid", flexContainer));
 
-            ReplyMessage replyMessage = new ReplyMessage(replyToken, messages);
+            ReplyMessage replyMessage = new ReplyMessage(replyToken, constructReplyMessage(mainMessage));
 
             botService.reply(replyToken, replyMessage.getMessages());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void showIndonesiaCovidCases(String replyToken) {
+        botService.reply(replyToken, constructReplyMessage(
+                Collections.singletonList(new TextMessage(casesHandlerService.getIndonesianAllCovidCases())))
+        );
+    }
+
+    private void showProvinceCovidCases(String replyToken, String province) {
+        botService.reply(replyToken, constructReplyMessage(
+                Collections.singletonList(
+                        new TextMessage(casesHandlerService.mapProvinceCovidCases
+                                (casesHandlerService.mapProvinceCovidCases(), province))
+                ))
+        );
+    }
+
+    private List<Message> constructReplyMessage(List<Message> mainMessage) {
+        List<Message> messages = new ArrayList<>(mainMessage);
+        messages.add(new TextMessage("Ada lagi yang bisa dibantu?"));
+        messages.add(new TextMessage("Silahkan ketik info untuk info covid, kasus untuk kasus covid, " +
+                ",penanganan untuk cari rs covid, dan keluar untuk akhiri percakapan"));
+        return messages;
     }
 }

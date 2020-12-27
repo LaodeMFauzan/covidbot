@@ -37,7 +37,7 @@ public class CasesHandlerService {
                 "\nDirawat: "+ indonesianCoronaData[0].getDirawat();
     }
 
-    public Map<String, Attributes> getProvinceCovidCases(){
+    public Map<String, Attributes> mapProvinceCovidCases(){
        ListCases[] coronaData = kawalCoronaAdaptor.getCovidDataOnProvince();
        Map<String, Attributes> provinceCaseMap = new HashMap<>();
         Arrays.stream(coronaData).forEach(cases -> {
@@ -46,7 +46,7 @@ public class CasesHandlerService {
         return provinceCaseMap;
     }
 
-    public String getProvinceCovidCases(Map<String, Attributes> provinceCaseMap, String province){
+    public String mapProvinceCovidCases(Map<String, Attributes> provinceCaseMap, String province){
         NumberFormat formatter = NumberFormat.getNumberInstance();
 
         return  "Total Kasus Covid19 di "+ StringUtils.capitalize(province) +"\n"+
