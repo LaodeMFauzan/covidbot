@@ -45,7 +45,7 @@ public class CasesHandlerService {
     }
 
     public String getProvinceCovidCases(Map<String, Attributes> provinceCaseMap, String province){
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        NumberFormat formatter = NumberFormat.getNumberInstance();
 
         return  "Total Kasus Covid19 di "+province +"\n"+
                 "\nPositif: " +formatter.format(provinceCaseMap.get(province).getKasus_Posi()) +
