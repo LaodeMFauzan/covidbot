@@ -35,6 +35,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CallbackService {
@@ -161,25 +162,22 @@ public class CallbackService {
     private void handleOneOnOneChats(String replyToken, String textMessage) {
         String msgText = textMessage.toLowerCase();
         if (msgText.contains("info")) {
-            String replyText = null;
-            try {
-                replyText = new String(Files.readAllBytes(Paths.get("src/main/resources/covid_info.txt")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            botService.replyText(replyToken, replyText);
-        } else if (msgText.contains("penanganan")){
-             // show hospital that handle covid
-            replyFlexMessage(replyToken);
-        } else if (msgText.contains("kasus")){
-            // show the number cases of covid19 in Indonesia
+            showInfoCovid(replyToken);
+            followUpQuestionMessage(replyToken);
+        } else if (msgText.contains("penanganan")) {
+            botService.replyFlexMessage(replyToken);
+            followUpQuestionMessage(replyToken);
+        } else if (msgText.contains("kasus")) {
             casesHandlerService.handleCovidCasesRequest(replyToken);
-        } else if (msgText.contains("indonesia")){
+            followUpQuestionMessage(replyToken);
+        } else if (msgText.contains("indonesia")) {
             botService.replyText(replyToken, casesHandlerService.getIndonesianAllCovidCases());
-        } else if ((casesHandlerService.getProvinceCovidCases().containsKey(msgText.toLowerCase()))){
+            followUpQuestionMessage(replyToken);
+        } else if ((casesHandlerService.getProvinceCovidCases().containsKey(msgText.toLowerCase()))) {
             botService.replyText(replyToken, casesHandlerService.getProvinceCovidCases(
                     casesHandlerService.getProvinceCovidCases(), msgText
             ));
+            followUpQuestionMessage(replyToken);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
@@ -189,20 +187,17 @@ public class CallbackService {
         greetingMessage(replyToken, source, "Hi " + sender.getDisplayName() + ", aku belum  mengerti maksud kamu. Silahkan ikuti petunjuk ya :)");
     }
 
-    private void replyFlexMessage(String replyToken){
+    private void showInfoCovid(String replyToken) {
+        String replyText = null;
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_message.json"));
-
-
-            ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-            FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
-
-
-            ReplyMessage replyMessage = new ReplyMessage(replyToken, new FlexMessage("Dicoding Academy", flexContainer));
-            botService.reply(replyToken, replyMessage.getMessages());
+            replyText = new String(Files.readAllBytes(Paths.get("src/main/resources/covid_info.txt")));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        botService.replyText(replyToken, replyText);
+    }
+
+    private void followUpQuestionMessage(String replyToken) {
+        botService.replyText(replyToken, "Adalagi yang bisa dibantu?");
     }
 }

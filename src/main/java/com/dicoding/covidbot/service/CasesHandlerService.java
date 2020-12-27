@@ -5,6 +5,7 @@ import com.dicoding.covidbot.model.Attributes;
 import com.dicoding.covidbot.model.CoronaData;
 import com.dicoding.covidbot.model.ListCases;
 import com.dicoding.covidbot.model.ProvinceCovidData;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,8 @@ public class CasesHandlerService {
     private BotService botService;
 
     public void handleCovidCasesRequest(String replyToken){
-        String askRegionText ="Silahkan ketik nama provinsi atau ketik Indonesia untuk kasus seluruh Indonesia";
+        String askRegionText ="Silahkan ketik nama provinsi untuk kasus tiap provinsi" +
+                " atau ketik Indonesia untuk kasus seluruh Indonesia";
         botService.replyText(replyToken, askRegionText);
     }
 
@@ -47,7 +49,7 @@ public class CasesHandlerService {
     public String getProvinceCovidCases(Map<String, Attributes> provinceCaseMap, String province){
         NumberFormat formatter = NumberFormat.getNumberInstance();
 
-        return  "Total Kasus Covid19 di "+province +"\n"+
+        return  "Total Kasus Covid19 di "+ StringUtils.capitalize(province) +"\n"+
                 "\nPositif: " +formatter.format(provinceCaseMap.get(province).getKasus_Posi()) +
                 "\nMeninggal: "+ formatter.format(provinceCaseMap.get(province).getKasus_Meni()) +
                 "\nSembuh: "+ formatter.format(provinceCaseMap.get(province).getKasus_Semb());
