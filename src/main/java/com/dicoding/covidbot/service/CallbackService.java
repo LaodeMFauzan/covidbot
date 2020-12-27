@@ -198,6 +198,6 @@ public class CallbackService {
     }
 
     private void followUpQuestionMessage(String replyToken) {
-        botService.replyText(replyToken, "Adalagi yang bisa dibantu?");
+        botService.replyText(replyToken, "Ada lagi yang bisa dibantu?");
     }
 }

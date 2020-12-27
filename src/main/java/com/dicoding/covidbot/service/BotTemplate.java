@@ -18,9 +18,9 @@ import java.util.List;
 
 @Service
 public class BotTemplate {
-    public TemplateMessage createButton(String message, String actionTitle, String actionText) {
+    public TemplateMessage createButton(String message) {
         List<Action> actionList = new ArrayList<>();
-        actionList.add(new MessageAction(actionTitle, actionText));
+        actionList.add(new MessageAction("Info Covid", "Info"));
         actionList.add(new MessageAction("Kasus Covid19", "Kasus"));
         actionList.add(new MessageAction("RS Covid", "Penanganan"));
 
@@ -31,13 +31,12 @@ public class BotTemplate {
                actionList
         );
 
-        return new TemplateMessage(actionTitle, buttonsTemplate);
+        return new TemplateMessage("",buttonsTemplate);
     }
 
     public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
         String message  = "Halo! Saya vidbo, virtual assistant yang siap menjawab pertanyaan seputar covid19 di Indonesia";
-        String action   = "Info covid";
-
+        String guide = "\nSilahkan ketik info untuk info covid, kasus untuk kasus covid, dan penanganan untuk cari rs covid";
         if (source instanceof GroupSource) {
             message = String.format(message, "Group");
         } else if (source instanceof RoomSource) {
@@ -48,7 +47,7 @@ public class BotTemplate {
             message = "Unknown Message Source!";
         }
 
-        return createButton(message, action, action);
+        return createButton(message+ guide);
     }
 
     public String escape(String text) {
