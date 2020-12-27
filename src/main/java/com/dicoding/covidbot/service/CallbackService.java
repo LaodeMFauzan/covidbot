@@ -164,7 +164,7 @@ public class CallbackService {
         if (msgText.contains("info")) {
             showInfoCovid(replyToken);
         } else if (msgText.contains("penanganan")) {
-            botService.replyFlexMessage(replyToken);
+            replyFlexMessage(replyToken);
         } else if (msgText.contains("kasus")) {
             casesHandlerService.handleCovidCasesRequest(replyToken);
         } else if (msgText.contains("indonesia")) {
@@ -190,5 +190,27 @@ public class CallbackService {
             e.printStackTrace();
         }
         botService.replyText(replyToken, replyText);
+    }
+
+    public void replyFlexMessage(String replyToken){
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            String flexTemplate = IOUtils.toString(Objects.requireNonNull
+                    (classLoader.getResourceAsStream("flex_message.json")));
+
+
+            ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+            FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
+
+            List<Message> messages = new ArrayList<>();
+            messages.add(new TextMessage("Berikut beberapa RS yang dapat menangani covid."));
+            messages.add(new FlexMessage("RS Covid", flexContainer));
+
+            ReplyMessage replyMessage = new ReplyMessage(replyToken, messages);
+
+            botService.reply(replyToken, replyMessage.getMessages());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

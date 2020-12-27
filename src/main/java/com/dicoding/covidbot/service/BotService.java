@@ -101,23 +101,4 @@ public class BotService {
             throw new RuntimeException(e);
         }
     }
-
-    public void replyFlexMessage(String replyToken){
-        try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            String flexTemplate = IOUtils.toString(Objects.requireNonNull
-                    (classLoader.getResourceAsStream("flex_message.json")));
-
-
-            ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-            FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
-
-
-            ReplyMessage replyMessage = new ReplyMessage(replyToken, new FlexMessage("Dicoding Academy",
-                    flexContainer));
-            reply(replyToken, replyMessage.getMessages());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
