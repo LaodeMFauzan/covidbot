@@ -31,7 +31,7 @@ public class BotTemplate {
                actionList
         );
 
-        return new TemplateMessage("",buttonsTemplate);
+        return new TemplateMessage("Covid",buttonsTemplate);
     }
 
     public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
@@ -47,10 +47,6 @@ public class BotTemplate {
             message = "Unknown Message Source!";
         }
 
-        return createButton(message+ guide);
-    }
-
-    public String escape(String text) {
-        return  StringEscapeUtils.escapeJson(text.trim());
+        return createButton(message + guide);
     }
 }

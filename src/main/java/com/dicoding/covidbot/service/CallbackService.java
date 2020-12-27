@@ -163,21 +163,16 @@ public class CallbackService {
         String msgText = textMessage.toLowerCase();
         if (msgText.contains("info")) {
             showInfoCovid(replyToken);
-            followUpQuestionMessage(replyToken);
         } else if (msgText.contains("penanganan")) {
             botService.replyFlexMessage(replyToken);
-            followUpQuestionMessage(replyToken);
         } else if (msgText.contains("kasus")) {
             casesHandlerService.handleCovidCasesRequest(replyToken);
-            followUpQuestionMessage(replyToken);
         } else if (msgText.contains("indonesia")) {
             botService.replyText(replyToken, casesHandlerService.getIndonesianAllCovidCases());
-            followUpQuestionMessage(replyToken);
         } else if ((casesHandlerService.getProvinceCovidCases().containsKey(msgText.toLowerCase()))) {
             botService.replyText(replyToken, casesHandlerService.getProvinceCovidCases(
                     casesHandlerService.getProvinceCovidCases(), msgText
             ));
-            followUpQuestionMessage(replyToken);
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
