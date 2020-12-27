@@ -35,7 +35,6 @@ public class BotTemplate {
 
     public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
         String message  = "Halo! Saya vidbo, virtual assistant yang siap menjawab pertanyaan seputar covid19 di Indonesia";
-//        String guide = "\nSilahkan ketik info untuk info covid, kasus untuk kasus covid, dan penanganan untuk cari rs covid";
         if (source instanceof GroupSource) {
             message = String.format(message, "Group");
         } else if (source instanceof RoomSource) {

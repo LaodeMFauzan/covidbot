@@ -30,7 +30,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -164,7 +163,7 @@ public class CallbackService {
         if (msgText.contains("info")) {
             showInfoCovid(replyToken);
         } else if (msgText.contains("penanganan")) {
-            replyFlexMessage(replyToken);
+            showCovidHospital(replyToken);
         } else if (msgText.contains("kasus")) {
             casesHandlerService.handleCovidCasesRequest(replyToken);
         } else if (msgText.contains("indonesia")) {
@@ -179,7 +178,8 @@ public class CallbackService {
     }
 
     private void handleFallbackMessage(String replyToken, Source source) {
-        greetingMessage(replyToken, source, "Hi " + sender.getDisplayName() + ", aku belum  mengerti maksud kamu. Silahkan ikuti petunjuk ya :)");
+        greetingMessage(replyToken, source, "Hi " + sender.getDisplayName() +
+                ", aku belum  mengerti maksud kamu. Silahkan ikuti petunjuk ya :)");
     }
 
     private void showInfoCovid(String replyToken) {
@@ -189,10 +189,16 @@ public class CallbackService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        botService.replyText(replyToken, replyText);
+        List<Message> messages = new ArrayList<>();
+        messages.add(new TextMessage(replyText));
+        messages.add(new TextMessage("Apa lagi yang bisa dibantu?"));
+        messages.add(new TextMessage("Silahkan ketik info untuk info covid, kasus untuk kasus covid, " +
+                "dan penanganan untuk cari rs covid"));
+
+        botService.reply(replyToken, messages);
     }
 
-    public void replyFlexMessage(String replyToken){
+    public void showCovidHospital(String replyToken){
         try {
             ClassLoader classLoader = getClass().getClassLoader();
             String flexTemplate = IOUtils.toString(Objects.requireNonNull
@@ -205,6 +211,9 @@ public class CallbackService {
             List<Message> messages = new ArrayList<>();
             messages.add(new TextMessage("Berikut beberapa RS yang dapat menangani covid."));
             messages.add(new FlexMessage("RS Covid", flexContainer));
+            messages.add(new TextMessage("Apa lagi yang bisa dibantu?"));
+            messages.add(new TextMessage("Silahkan ketik info untuk info covid, kasus untuk kasus covid, " +
+                    "dan penanganan untuk cari rs covid"));
 
             ReplyMessage replyMessage = new ReplyMessage(replyToken, messages);
 
