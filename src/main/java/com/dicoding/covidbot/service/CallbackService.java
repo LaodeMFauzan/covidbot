@@ -169,7 +169,7 @@ public class CallbackService {
         } else if ((casesHandlerService.mapProvinceCovidCases().containsKey(msgText.toLowerCase()))) {
             showProvinceCovidCases(replyToken, msgText);
         } else if (msgText.contains("keluar")) {
-            botService.replyText(replyToken, "Terimakasih sudah menghubungi vidbo. Stay safe, stay sane!");
+            botService.replyText(replyToken, "Terimakasih sudah menghubungi vio. Stay safe, stay sane!");
         } else {
             handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
         }
@@ -190,7 +190,8 @@ public class CallbackService {
         List<Message> messages = new ArrayList<>();
         messages.add(new TextMessage(replyText));
 
-        botService.reply(replyToken, constructReplyMessage(Collections.singletonList(new TextMessage(replyText))));
+        botService.reply(replyToken, botTemplate.constructReplyMessage
+                (Collections.singletonList(new TextMessage(replyText))));
     }
 
     public void showCovidHospital(String replyToken) {
@@ -207,7 +208,7 @@ public class CallbackService {
             mainMessage.add(new TextMessage("Berikut beberapa RS yang dapat menangani covid."));
             mainMessage.add(new FlexMessage("RS Covid", flexContainer));
 
-            ReplyMessage replyMessage = new ReplyMessage(replyToken, constructReplyMessage(mainMessage));
+            ReplyMessage replyMessage = new ReplyMessage(replyToken, botTemplate.constructReplyMessage(mainMessage));
 
             botService.reply(replyToken, replyMessage.getMessages());
         } catch (IOException e) {
@@ -216,25 +217,17 @@ public class CallbackService {
     }
 
     private void showIndonesiaCovidCases(String replyToken) {
-        botService.reply(replyToken, constructReplyMessage(
+        botService.reply(replyToken, botTemplate.constructReplyMessage(
                 Collections.singletonList(new TextMessage(casesHandlerService.getIndonesianAllCovidCases())))
         );
     }
 
     private void showProvinceCovidCases(String replyToken, String province) {
-        botService.reply(replyToken, constructReplyMessage(
+        botService.reply(replyToken, botTemplate.constructReplyMessage(
                 Collections.singletonList(
                         new TextMessage(casesHandlerService.mapProvinceCovidCases
                                 (casesHandlerService.mapProvinceCovidCases(), province))
                 ))
         );
-    }
-
-    private List<Message> constructReplyMessage(List<Message> mainMessage) {
-        List<Message> messages = new ArrayList<>(mainMessage);
-        messages.add(new TextMessage("Ada lagi yang bisa dibantu?"));
-        messages.add(new TextMessage("Silahkan ketik info untuk info covid, kasus untuk kasus covid, " +
-                ",penanganan untuk cari rs covid, dan keluar untuk akhiri percakapan"));
-        return messages;
     }
 }

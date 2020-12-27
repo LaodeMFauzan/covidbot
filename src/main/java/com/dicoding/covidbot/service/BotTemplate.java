@@ -6,7 +6,9 @@ import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UserSource;
+import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
+import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import org.apache.commons.text.StringEscapeUtils;
@@ -34,7 +36,7 @@ public class BotTemplate {
     }
 
     public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
-        String message  = "Halo! Saya vidbo, virtual assistant yang siap menjawab pertanyaan seputar covid19 di Indonesia";
+        String message  = "Halo! Aku vio, virtual assistant yang siap menjawab pertanyaan seputar covid19 di Indonesia";
         if (source instanceof GroupSource) {
             message = String.format(message, "Group");
         } else if (source instanceof RoomSource) {
@@ -46,5 +48,13 @@ public class BotTemplate {
         }
 
         return createButton(message);
+    }
+
+    public List<Message> constructReplyMessage(List<Message> mainMessage) {
+        List<Message> messages = new ArrayList<>(mainMessage);
+        messages.add(new TextMessage("Ada lagi yang bisa dibantu?"));
+        messages.add(new TextMessage("Silahkan ketik info untuk info covid, kasus untuk kasus covid"+
+                ",penanganan untuk cari rs covid, dan keluar untuk akhiri percakapan"));
+        return messages;
     }
 }
